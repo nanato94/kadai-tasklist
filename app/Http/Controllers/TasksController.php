@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Task;
+
+use App\Task; 
 
 class TasksController extends Controller
 {
@@ -14,13 +15,13 @@ class TasksController extends Controller
      */
     public function index()
     {
-        // メッセージ一覧を取得
+        // タスク一覧を取得
         $tasks = Task::all();
-        
-        // メッセージ一覧ビューでそれを表示
+
+        // タスク一覧ビューでそれを表示
         return view('tasks.index', [
             'tasks' => $tasks,
-        ]);
+        ]);        
     }
 
     /**
@@ -28,6 +29,7 @@ class TasksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // getでtasks/createにアクセスされた場合の「新規登録画面表示処理」
     public function create()
     {
         $task = new Task;
@@ -46,6 +48,7 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
+    {
         // タスクを作成
         $task = new Task;
         $task->content = $request->content;
@@ -53,6 +56,7 @@ class TasksController extends Controller
 
         // トップページへリダイレクトさせる
         return redirect('/');
+    }
     }
 
     /**
@@ -63,10 +67,10 @@ class TasksController extends Controller
      */
     public function show($id)
     {
-        // idの値でメッセージを検索して取得
+        // idの値でタスクを検索して取得
         $task = Task::findOrFail($id);
 
-        // メッセージ詳細ビューでそれを表示
+        // タスク詳細ビューでそれを表示
         return view('tasks.show', [
             'task' => $task,
         ]);
@@ -80,12 +84,12 @@ class TasksController extends Controller
      */
     public function edit($id)
     {
-        // idの値でメッセージを検索して取得
-        $tasks = Task::findOrFail($id);
+        // idの値でタスクを検索して取得
+        $task = Task::findOrFail($id);
 
-        // メッセージ編集ビューでそれを表示
+        // タスク編集ビューでそれを表示
         return view('tasks.edit', [
-            'task' => $tasks,
+            'task' => $task,
         ]);
     }
 
@@ -98,9 +102,9 @@ class TasksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // idの値でメッセージを検索して取得
-        $task = Tasks::findOrFail($id);
-        // メッセージを更新
+        // idの値でタスクを検索して取得
+        $task = Task::findOrFail($id);
+        // タスクを更新
         $task->content = $request->content;
         $task->save();
 
@@ -114,11 +118,12 @@ class TasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // deleteでtasks/idにアクセスされた場合の「削除処理」
     public function destroy($id)
     {
-        // idの値でメッセージを検索して取得
-        $task = Tasks::findOrFail($id);
-        // メッセージを削除
+        // idの値でタスクを検索して取得
+        $task = Task::findOrFail($id);
+        // タスクを削除
         $task->delete();
 
         // トップページへリダイレクトさせる
