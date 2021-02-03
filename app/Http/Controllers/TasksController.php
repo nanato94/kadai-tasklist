@@ -104,11 +104,11 @@ class TasksController extends Controller
     {
         // idの値でタスクを検索して取得
         $task = Task::findOrFail($id);
-        // タスクを更新
+        // タスク更新
         $task->content = $request->content;
         $task->save();
 
-        // トップページへリダイレクトさせる
+        // トップページへリダイレクト
         return redirect('/');
     }
 
@@ -126,7 +126,7 @@ class TasksController extends Controller
         // タスクを削除
         $task->delete();
 
-        // トップページへリダイレクトさせる
+        // トップページへリダイレクト
         return redirect('/');
     }
 }
